@@ -1,1 +1,7 @@
-<h1>Posts#index</h1>
+<turbo-frame id="new_post">
+  <%= render "form", post: Post.new %>
+</turbo-frame>
+
+<div id="posts_list">
+  <%= render @posts %>
+</div>

@@ -16,7 +16,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_to @post, notice: "Post created successfully!"
+      respond_to do |format|
+        format.html { redirect_to @post, notice: "Post created successfully!" }
+        format.turbo_stream
+      end  
     else
       render :new
     end
