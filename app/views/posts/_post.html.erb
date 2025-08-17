@@ -1,4 +1,12 @@
-<div id="post_<%= post.id %>">
+<turbo-frame id="<%= dom_id(post) %>" data-controller="post">
   <h3><%= post.title %></h3>
-  <p><%= post.body %></p>
-</div>
+  
+  <button data-action="click->post#toggle">Toggle Details</button>
+
+  <p data-post-target="body">
+    <%= post.body %>
+  </p>
+
+  <%= link_to "Edit", edit_post_path(post), data: { turbo_frame: dom_id(post) } %> |
+  <%= button_to "Delete", post_path(post), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+</turbo-frame>

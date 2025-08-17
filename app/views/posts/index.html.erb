@@ -1,7 +1,9 @@
-<turbo-frame id="new_post">
-  <%= render "form", post: Post.new %>
-</turbo-frame>
+<h1>Posts</h1>
 
-<div id="posts_list">
+<%= link_to "New Post", new_post_path, data: { turbo_frame: "new_post" } %>
+
+<turbo-frame id="new_post"></turbo-frame>
+
+<turbo-frame id="posts">
   <%= render @posts %>
-</div>
+</turbo-frame>

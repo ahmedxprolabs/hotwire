@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
+  
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @posts = Post.all
@@ -19,7 +21,7 @@ class PostsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @post, notice: "Post created successfully!" }
         format.turbo_stream
-      end  
+      end
     else
       render :new
     end
@@ -27,7 +29,10 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: "Post updated successfully!"
+      respond_to do |format|
+        format.html { redirect_to @post, notice: "Post updated successfully!" }
+        format.turbo_stream
+      end
     else
       render :edit
     end
@@ -35,7 +40,10 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "Post deleted successfully"
+    respond_to do |format|
+      format.html { redirect_to posts_path, notice: "Post deleted successfully" }
+      format.turbo_stream
+    end
   end
 
   private
