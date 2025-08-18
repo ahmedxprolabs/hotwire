@@ -36,6 +36,8 @@ gem "bootsnap", require: false
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
+gem "ransack"
+gem 'kaminari'
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
@@ -57,6 +59,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "letter_opener"
+  gem "letter_opener_web"
 end
 
 group :test do
