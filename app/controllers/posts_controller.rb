@@ -1,9 +1,13 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :authenticate_user!
 
   def index
-    @posts = Post.all
+    @q = Post.ransack(params[:q])
+    @posts = @q.result.order(created_at: :desc).page(params[:page]).per(2)
   end
+
 
   def show; end
 
@@ -16,7 +20,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_to @post, notice: "Post created successfully!"
+      respond_to do |format|
+        format.html { redirect_to @post, notice: "Post created successfully!" }
+        format.turbo_stream
+      end
     else
       render :new
     end
@@ -24,7 +31,10 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: "Post updated successfully!"
+      respond_to do |format|
+        format.html { redirect_to @post, notice: "Post updated successfully!" }
+        format.turbo_stream
+      end
     else
       render :edit
     end
@@ -32,7 +42,10 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "Post deleted successfully!"
+    respond_to do |format|
+      format.html { redirect_to posts_path, notice: "Post deleted successfully" }
+      format.turbo_stream
+    end
   end
 
   private
