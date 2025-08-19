@@ -8,7 +8,6 @@ class PostsController < ApplicationController
     @posts = @q.result.order(created_at: :desc).page(params[:page]).per(2)
   end
 
-
   def show; end
 
   def new
