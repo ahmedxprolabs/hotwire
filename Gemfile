@@ -39,6 +39,9 @@ gem "kamal", require: false
 gem "ransack"
 gem 'kaminari'
 
+gem "sidekiq"
+gem "redis"
+
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
